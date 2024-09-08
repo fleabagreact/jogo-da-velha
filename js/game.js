@@ -82,5 +82,5 @@ function startTimer() {
 }
 
 function goBack() {
-    window.location.href = '../html/index.html';
+    window.location.href = '../jogo-da-velha/index.html';
 }
