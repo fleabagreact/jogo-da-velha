@@ -3,7 +3,7 @@ function startGame(mode) {
     if (playerName.trim() !== '') {
         localStorage.setItem('playerName', playerName);
         localStorage.setItem('gameMode', mode);
-        window.location.href = '..jogo-da-velha/html/game.html';
+        window.location.href = '/jogo-da-velha/html/game.html';
     } else {
         alert('Por favor, digite seu nome.');
     }
