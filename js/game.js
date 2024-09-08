@@ -26,7 +26,7 @@ function makeMove(cell, index) {
         } else {
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             if (gameMode === 'onePlayer' && currentPlayer === 'O') {
-                setTimeout(makeMoveAI, 500); // Jogada da IA após 500ms
+                setTimeout(makeMoveAI, 500);
             }
         }
     }
@@ -70,7 +70,7 @@ function resetGame() {
     seconds = 0;
     startTimer();
     if (gameMode === 'onePlayer' && currentPlayer === 'O') {
-        setTimeout(makeMoveAI, 500); // IA começa se for sua vez
+        setTimeout(makeMoveAI, 500);
     }
 }
 
@@ -82,5 +82,5 @@ function startTimer() {
 }
 
 function goBack() {
-    window.location.href = 'index.html';
+    window.location.href = '../html/index.html';
 }
