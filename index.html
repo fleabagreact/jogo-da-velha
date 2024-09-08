@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Digite seu nome para começar</h1>
+        <input type="text" id="playerName" placeholder="Nome do Jogador">
+        <button onclick="startGame()">Começar Jogo</button>
+    </div>
+    
+    <script>
+        function startGame() {
+            const playerName = document.getElementById('playerName').value;
+            if (playerName.trim() !== '') {
+                localStorage.setItem('playerName', playerName);
+                window.location.href = 'game.html';
+            } else {
+                alert('Por favor, digite seu nome.');
+            }
+        }
+    </script>
+</body>
+</html>
