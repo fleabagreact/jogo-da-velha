@@ -13,14 +13,6 @@ h1 {
     font-size: 24px;
 }
 
-input {
-    padding: 10px;
-    font-size: 16px;
-    border: 2px solid #00796b;
-    border-radius: 5px;
-    width: 300px;
-}
-
 button {
     padding: 10px;
     font-size: 16px;
@@ -34,4 +26,26 @@ button {
 
 button:hover {
     background-color: #004d40;
+}
+
+.hidden {
+    display: none;
+}
+
+#fieldsContainer {
+    margin-top: 20px;
+}
+
+#fieldsContainer input {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #00796b;
+    border-radius: 5px;
+    width: 300px;
+}
+
+#singlePlayerFields, #twoPlayerFields {
+    margin-top: 10px;
 }

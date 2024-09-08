@@ -8,20 +8,21 @@
 </head>
 <body>
     <div class="container">
-        <h1>Digite seu nome para começar</h1>
-        <div id="singlePlayerFields">
-            <input type="text" id="playerName1" placeholder="Nome do Jogador">
-        </div>
-        <div id="twoPlayerFields" style="display: none;">
-            <input type="text" id="playerName1" placeholder="Nome do Jogador 1">
-            <input type="text" id="playerName2" placeholder="Nome do Jogador 2">
-        </div>
-        <div>
+        <div id="gameModeButtons">
             <button onclick="setGameMode('onePlayer')">Um Jogador (contra a máquina)</button>
             <button onclick="setGameMode('twoPlayers')">Dois Jogadores</button>
         </div>
-        <div id="startGameButton" style="display: none;">
-            <button onclick="startGame()">Começar Jogo</button>
+        <div id="fieldsContainer" class="hidden">
+            <div id="singlePlayerFields">
+                <input type="text" id="playerName1" placeholder="Nome do Jogador">
+            </div>
+            <div id="twoPlayerFields" class="hidden">
+                <input type="text" id="playerName1" placeholder="Nome do Jogador 1">
+                <input type="text" id="playerName2" placeholder="Nome do Jogador 2">
+            </div>
+            <div id="startGameButton">
+                <button onclick="startGame()">Começar Jogo</button>
+            </div>
         </div>
     </div>
     

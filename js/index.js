@@ -3,16 +3,16 @@ let gameMode = '';
 function setGameMode(mode) {
     gameMode = mode;
     localStorage.setItem('gameMode', mode);
-    
-    if (mode === 'onePlayer') {
-        document.getElementById('singlePlayerFields').style.display = 'block';
-        document.getElementById('twoPlayerFields').style.display = 'none';
-    } else if (mode === 'twoPlayers') {
-        document.getElementById('singlePlayerFields').style.display = 'none';
-        document.getElementById('twoPlayerFields').style.display = 'block';
-    }
 
-    document.getElementById('startGameButton').style.display = 'block';
+    document.getElementById('fieldsContainer').classList.remove('hidden');
+
+    if (mode === 'onePlayer') {
+        document.getElementById('singlePlayerFields').classList.remove('hidden');
+        document.getElementById('twoPlayerFields').classList.add('hidden');
+    } else if (mode === 'twoPlayers') {
+        document.getElementById('singlePlayerFields').classList.add('hidden');
+        document.getElementById('twoPlayerFields').classList.remove('hidden');
+    }
 }
 
 function startGame() {
