@@ -6,17 +6,29 @@ let seconds = 0;
 let gameMode;
 
 window.onload = function () {
-    document.getElementById('playerDisplay').innerText = `Jogador: ${localStorage.getItem('playerName')}`;
     gameMode = localStorage.getItem('gameMode');
+    const playerName1 = localStorage.getItem('playerName1');
+    const playerName2 = localStorage.getItem('playerName2');
+    
+    if (gameMode === 'onePlayer') {
+        document.getElementById('playerDisplay').innerText = `Jogador: ${playerName1}`;
+    } else {
+        document.getElementById('playerDisplay').innerText = `Jogador: ${currentPlayer === 'X' ? playerName1 : playerName2}`;
+    }
+    
     startTimer();
 };
 
 function makeMove(cell, index) {
     if (board[index] === '' && !isGameOver) {
+        const playerName1 = localStorage.getItem('playerName1');
+        const playerName2 = localStorage.getItem('playerName2');
+        
         board[index] = currentPlayer;
         cell.innerText = currentPlayer;
+
         if (checkWinner()) {
-            alert(`${currentPlayer} venceu!`);
+            alert(`${currentPlayer === 'X' ? playerName1 : playerName2} venceu!`);
             isGameOver = true;
             clearInterval(timer);
         } else if (board.every(cell => cell !== '')) {
@@ -27,6 +39,9 @@ function makeMove(cell, index) {
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             if (gameMode === 'onePlayer' && currentPlayer === 'O') {
                 setTimeout(makeMoveAI, 500);
+            } else if (gameMode === 'twoPlayers') {
+                const currentPlayerName = currentPlayer === 'X' ? localStorage.getItem('playerName1') : localStorage.getItem('playerName2');
+                document.getElementById('playerDisplay').innerText = `Jogador: ${currentPlayerName}`;
             }
         }
     }
