@@ -4,25 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogo da Velha</title>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <div class="container">
         <h1>Digite seu nome para começar</h1>
         <input type="text" id="playerName" placeholder="Nome do Jogador">
-        <button onclick="startGame()">Começar Jogo</button>
+        <div>
+            <button onclick="startGame('twoPlayers')">Dois Jogadores</button>
+            <button onclick="startGame('onePlayer')">Sozinho</button>
+        </div>
     </div>
     
-    <script>
-        function startGame() {
-            const playerName = document.getElementById('playerName').value;
-            if (playerName.trim() !== '') {
-                localStorage.setItem('playerName', playerName);
-                window.location.href = 'game.html';
-            } else {
-                alert('Por favor, digite seu nome.');
-            }
-        }
-    </script>
+    <script src="js/index.js"></script>
 </body>
 </html>

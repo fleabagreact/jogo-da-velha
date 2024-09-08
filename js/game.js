@@ -3,9 +3,11 @@ let board = ['', '', '', '', '', '', '', '', ''];
 let isGameOver = false;
 let timer;
 let seconds = 0;
+let gameMode;
 
 window.onload = function () {
     document.getElementById('playerDisplay').innerText = `Jogador: ${localStorage.getItem('playerName')}`;
+    gameMode = localStorage.getItem('gameMode');
     startTimer();
 };
 
@@ -23,7 +25,22 @@ function makeMove(cell, index) {
             clearInterval(timer);
         } else {
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            if (gameMode === 'onePlayer' && currentPlayer === 'O') {
+                setTimeout(makeMoveAI, 500); // Jogada da IA após 500ms
+            }
         }
+    }
+}
+
+function makeMoveAI() {
+    let availableCells = board
+        .map((cell, index) => (cell === '' ? index : null))
+        .filter(index => index !== null);
+    
+    if (availableCells.length > 0) {
+        let randomIndex = availableCells[Math.floor(Math.random() * availableCells.length)];
+        let cell = document.querySelectorAll('.cell')[randomIndex];
+        makeMove(cell, randomIndex);
     }
 }
 
@@ -52,6 +69,9 @@ function resetGame() {
     clearInterval(timer);
     seconds = 0;
     startTimer();
+    if (gameMode === 'onePlayer' && currentPlayer === 'O') {
+        setTimeout(makeMoveAI, 500); // IA começa se for sua vez
+    }
 }
 
 function startTimer() {
