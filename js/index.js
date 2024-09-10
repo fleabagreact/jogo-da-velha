@@ -18,7 +18,7 @@ function setGameMode(mode) {
 function startGame() {
     let playerNames;
     if (gameMode === 'onePlayer') {
-        playerNames = [document.getElementById('playerName1').value.trim()];
+        playerNames = [document.getElementById('singlePlayerName').value.trim()];
         if (playerNames[0] === '') {
             alert('Por favor, digite o nome do jogador.');
             return;
@@ -27,8 +27,8 @@ function startGame() {
         localStorage.setItem('playerName2', 'Máquina');
     } else if (gameMode === 'twoPlayers') {
         playerNames = [
-            document.getElementById('playerName1').value.trim(),
-            document.getElementById('playerName2').value.trim()
+            document.getElementById('player1Name').value.trim(),
+            document.getElementById('player2Name').value.trim()
         ];
         if (playerNames[0] === '' || playerNames[1] === '') {
             alert('Por favor, digite o nome de ambos os jogadores.');
