@@ -9,13 +9,13 @@ window.onload = function () {
     gameMode = localStorage.getItem('gameMode');
     const playerName1 = localStorage.getItem('playerName1');
     const playerName2 = localStorage.getItem('playerName2');
-    
+
     if (gameMode === 'onePlayer') {
         document.getElementById('playerDisplay').innerText = `Jogador: ${playerName1}`;
     } else {
         document.getElementById('playerDisplay').innerText = `Jogador: ${currentPlayer === 'X' ? playerName1 : playerName2}`;
     }
-    
+
     startTimer();
 };
 
@@ -23,7 +23,7 @@ function makeMove(cell, index) {
     if (board[index] === '' && !isGameOver) {
         const playerName1 = localStorage.getItem('playerName1');
         const playerName2 = localStorage.getItem('playerName2');
-        
+
         board[index] = currentPlayer;
         cell.innerText = currentPlayer;
 
@@ -48,15 +48,63 @@ function makeMove(cell, index) {
 }
 
 function makeMoveAI() {
-    let availableCells = board
+    let bestMove = minimax(board, 'O').index;
+    let cell = document.querySelectorAll('.cell')[bestMove];
+    makeMove(cell, bestMove);
+}
+
+function minimax(newBoard, player) {
+    const emptyCells = newBoard
         .map((cell, index) => (cell === '' ? index : null))
         .filter(index => index !== null);
-    
-    if (availableCells.length > 0) {
-        let randomIndex = availableCells[Math.floor(Math.random() * availableCells.length)];
-        let cell = document.querySelectorAll('.cell')[randomIndex];
-        makeMove(cell, randomIndex);
+
+    if (checkWinnerAI(newBoard, 'X')) {
+        return { score: -10 };
+    } else if (checkWinnerAI(newBoard, 'O')) {
+        return { score: 10 };
+    } else if (emptyCells.length === 0) {
+        return { score: 0 };
     }
+
+    const moves = [];
+
+    for (let i = 0; i < emptyCells.length; i++) {
+        const move = {};
+        move.index = emptyCells[i];
+        newBoard[emptyCells[i]] = player;
+
+        if (player === 'O') {
+            const result = minimax(newBoard, 'X');
+            move.score = result.score;
+        } else {
+            const result = minimax(newBoard, 'O');
+            move.score = result.score;
+        }
+
+        newBoard[emptyCells[i]] = '';
+        moves.push(move);
+    }
+
+    let bestMove;
+    if (player === 'O') {
+        let bestScore = -Infinity;
+        for (let i = 0; i < moves.length; i++) {
+            if (moves[i].score > bestScore) {
+                bestScore = moves[i].score;
+                bestMove = i;
+            }
+        }
+    } else {
+        let bestScore = Infinity;
+        for (let i = 0; i < moves.length; i++) {
+            if (moves[i].score < bestScore) {
+                bestScore = moves[i].score;
+                bestMove = i;
+            }
+        }
+    }
+
+    return moves[bestMove];
 }
 
 function checkWinner() {
@@ -73,6 +121,23 @@ function checkWinner() {
 
     return winConditions.some(condition => {
         return condition.every(index => board[index] === currentPlayer);
+    });
+}
+
+function checkWinnerAI(board, player) {
+    const winConditions = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+    ];
+
+    return winConditions.some(condition => {
+        return condition.every(index => board[index] === player);
     });
 }
 
